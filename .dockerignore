@@ -1,0 +1,22 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.gitattributes
+.workbuddy
+
+# 本地密钥与运行态，不进镜像
+.env
+.env.*
+config/settings.json
+logs
+*.log
+
+# 原文与原始页不入镜像（体积 + 版权）
+data/raw
+data/text
+
+# 部署相关文件本身不需要进镜像
+Dockerfile
+.dockerignore
+docker-compose.yml

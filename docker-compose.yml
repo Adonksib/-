@@ -1,0 +1,17 @@
+services:
+  qstheory:
+    build: .
+    image: qstheory-notes:latest
+    container_name: qstheory-notes
+    restart: unless-stopped
+    ports:
+      - "5178:5178"
+    env_file:
+      - .env
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      # 宿主机 ./data 就是仓库里那份（含第 22 期成品），挂上去既能读到也能写入新生成的期号
+      - ./data:/app/data
+    # Chromium 在容器里对 /dev/shm 敏感，默认 64MB 会崩
+    shm_size: 512m
