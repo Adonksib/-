@@ -1,0 +1,230 @@
+/* ============ A4 打印样式：既用于 /print/:id 页面，也用于网页打印 ============ */
+
+@page {
+  size: A4;
+  margin: 16mm 15mm 18mm 15mm;
+}
+
+.print-body {
+  background: #ece9e2;
+  margin: 0;
+  padding: 0;
+}
+
+/* 屏幕预览：模拟 A4 纸张 */
+.print-body > section {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto 14px;
+  padding: 16mm 15mm;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.print-body .cover { display: flex; flex-direction: column; justify-content: center; }
+
+/* ---------- 封面 ---------- */
+.cover {
+  text-align: center;
+  border: 1px solid #e6e2d8;
+}
+.cover-kicker {
+  letter-spacing: 6px;
+  font-size: 12pt;
+  color: #8c1c13;
+  margin-bottom: 18mm;
+}
+.cover-title {
+  font-family: "Noto Serif CJK SC", "SimSun", "Songti SC", serif;
+  font-size: 30pt;
+  line-height: 1.5;
+  margin: 0 0 10mm;
+  color: #1f2328;
+}
+.cover-title span { font-size: 26pt; letter-spacing: 4px; }
+.cover-rule {
+  width: 60mm;
+  height: 3px;
+  background: #8c1c13;
+  margin: 0 auto 10mm;
+}
+.cover-overview {
+  font-size: 11.5pt;
+  line-height: 2;
+  text-align: justify;
+  color: #3f3a33;
+  margin: 0 12mm 14mm;
+}
+.cover-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3mm 10mm;
+  font-size: 9.5pt;
+  color: #4a463f;
+  border-top: 1px solid #e6e2d8;
+  border-bottom: 1px solid #e6e2d8;
+  padding: 6mm 0;
+  margin: 0 16mm;
+  text-align: left;
+}
+.cover-meta div { display: flex; gap: 6px; align-items: baseline; }
+.cover-meta span { color: #8a857b; white-space: nowrap; }
+.cover-meta span::after { content: "："; }
+.cover-meta b { font-weight: 600; }
+.cover-foot { margin-top: 16mm; font-size: 8.5pt; color: #a09a90; }
+
+/* ---------- 目录 ---------- */
+.toc h2 {
+  font-size: 18pt;
+  letter-spacing: 8px;
+  text-align: center;
+  margin: 0 0 10mm;
+  font-family: "Noto Serif CJK SC", "SimSun", serif;
+}
+.toc-cols { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10mm; }
+.toc-group {
+  font-size: 10pt;
+  font-weight: 700;
+  color: #8c1c13;
+  border-bottom: 1px solid #e6e2d8;
+  padding-bottom: 2mm;
+  margin-bottom: 3mm;
+}
+.toc-list { margin: 0; padding-left: 6mm; font-size: 9.5pt; line-height: 1.9; }
+.toc-articles li { margin-bottom: 1.2mm; }
+.toc-id { color: #a09a90; font-family: Consolas, monospace; margin-right: 4px; font-size: 8.5pt; }
+
+/* ---------- 打印正文排版 ---------- */
+.print-body { font-size: 10.5pt; line-height: 1.75; color: #111; }
+.print-body .summary-block > h2 { font-size: 16pt; margin: 0 0 6mm; }
+.print-body .summary-block > h3 {
+  font-size: 12pt;
+  margin: 7mm 0 3mm;
+  padding-left: 3mm;
+  border-left: 3px solid #8c1c13;
+  color: #8c1c13;
+}
+.print-body .overview { font-size: 10.5pt; }
+.print-body .stat-row { gap: 14mm; padding: 4mm 0; }
+.print-body .stat-num { font-size: 16pt; }
+.print-body .theme-row { grid-template-columns: 38mm 1fr 13mm 26mm; font-size: 9.5pt; gap: 3mm; }
+.print-body .hw { font-size: 9.5pt; }
+.print-body .mk-item { padding: 2mm 4mm; }
+.print-body .mk-title { font-size: 10.5pt; }
+.print-body .mk-why { font-size: 9pt; }
+.print-body .recite li { padding: 2.5mm 4mm 2.5mm 15mm; margin-bottom: 2mm; }
+.print-body .recite-text { font-size: 10.5pt; }
+.print-body .forecast { gap: 4mm; }
+.print-body .fc-col { padding: 3mm 4mm; font-size: 9pt; }
+.print-body .plan { font-size: 9.5pt; }
+.print-body .quality { font-size: 8.5pt; }
+
+/* ---------- 逐篇 ---------- */
+.articles-print { display: block; }
+.article-block {
+  break-before: page;
+  page-break-before: always;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+}
+.article-block:first-child { break-before: auto; page-break-before: auto; }
+.article-block .card-head { border-bottom: 1.5px solid #8c1c13; padding-bottom: 2.5mm; margin-bottom: 4mm; }
+.article-block .idx { font-size: 8.5pt; color: #a09a90; }
+.article-block h3 { font-size: 15pt; margin: 2mm 0; line-height: 1.45; }
+.article-block .card-sub { font-size: 8.5pt; }
+.article-block .level { color: #b8860b; }
+.article-block .chip { font-size: 8pt; padding: 0 2mm; }
+
+.article-block .oneline {
+  font-size: 11pt;
+  font-weight: 700;
+  background: #fdfcf9;
+  border-left: 3px solid #8c1c13;
+  padding: 2mm 4mm;
+  margin: 0 0 3mm;
+}
+.article-block .note { font-size: 8.5pt; }
+.article-block .themes { margin-bottom: 3mm; }
+.article-block .pill { font-size: 8.5pt; }
+.article-block .points h4 { font-size: 10pt; margin: 4mm 0 2mm; color: #8c1c13; }
+.article-block .points ol { padding-left: 6mm; }
+.article-block .points li { margin-bottom: 2mm; font-size: 10pt; }
+.article-block .points .detail { font-size: 9.5pt; color: #333; }
+
+.article-block .quote-box {
+  padding: 2mm 4mm;
+  margin-bottom: 2mm;
+  background: #fdf8e8;
+  border-left: 3px solid #b8860b;
+}
+.article-block .quote-text { font-size: 10.5pt; }
+.article-block .quote-meta { font-size: 8pt; }
+
+.article-block .exam-grid { gap: 3mm; margin-top: 5mm; }
+.article-block .exam-col { padding: 2.5mm 3mm; font-size: 8.8pt; }
+.article-block .exam-col h4 { font-size: 9pt; margin-bottom: 1.5mm; }
+.article-block .qa-q { font-size: 9pt; }
+.article-block .qa-a { padding-left: 4mm; }
+
+.article-block .figures figure { max-width: 46%; }
+.article-block .figures img { max-height: 72mm; width: auto; max-width: 100%; }
+.article-block .figures-chart figure { max-width: 100%; }
+.article-block .figures-chart img { max-height: 215mm; width: auto; margin: 0 auto; display: block; }
+.article-block .figures figcaption { font-size: 8pt; }
+
+/* ---------- 分页控制 ---------- */
+/* 注意：整张文章卡片远高于一页，绝不能对它用 break-inside: avoid，
+   否则 Chrome 排版会为了"不折断"而陷入极慢的分页计算（实测 CDP 打印直接挂住） */
+.quote-box,
+.mk-item,
+.recite li,
+figure,
+table,
+tr,
+.qa,
+.fc-col,
+.theme-row {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+p { orphans: 3; widows: 3; }
+thead { display: table-header-group; }
+img { max-width: 100%; height: auto; }
+
+/* ============ 真正的打印输出 ============ */
+@media print {
+  html, body, .print-body {
+    background: #fff !important;
+  }
+  .print-body > section {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .print-body .cover {
+    height: 246mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    break-after: page;
+    page-break-after: always;
+  }
+  .print-body .toc {
+    break-after: page;
+    page-break-after: always;
+    min-height: 240mm;
+  }
+  .print-summary { break-after: page; page-break-after: always; }
+
+  .no-print, nav, .toolbar, button, .topbar, .foot, .filter-bar, .issue-actions { display: none !important; }
+
+  a { color: #111 !important; text-decoration: none !important; }
+  .article-block { break-before: page; page-break-before: always; }
+  .article-block:first-child { break-before: auto; page-break-before: auto; }
+}
