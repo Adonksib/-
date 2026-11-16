@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "latest": {
+    "year": 2026,
+    "issue": 22,
+    "id": "2026-22",
+    "label": "《求是》2026年第22期",
+    "url": "https://www.qstheory.cn/20261114/c84763a0f73b459d915a6d253368cd77/c.html",
+    "indexUrl": "https://www.qstheory.cn/20251231/2d916da295774130ac2fb223fd208895/c.html",
+    "publishDate": "2026-11-14",
+    "source": "year-index",
+    "checkedAt": "2026-11-16T07:37:16.456Z"
+  },
+  "issues": [
+    {
+      "id": "2026-22",
+      "year": 2026,
+      "issue": 22,
+      "label": "《求是》2026年第22期",
+      "publishDate": "2026-11-14",
+      "catalogUrl": "https://www.qstheory.cn/20261114/c84763a0f73b459d915a6d253368cd77/c.html",
+      "articleCount": 22,
+      "phase": "done",
+      "hasSummary": true,
+      "pdf": "data/exports/求是2026年第22期_备考重点_20261116.pdf",
+      "tokens": {
+        "prompt": 64488,
+        "completion": 23968
+      },
+      "updatedAt": "2026-11-16T07:37:30.900Z"
+    }
+  ],
+  "updatedAt": "2026-11-16T07:37:30.900Z"
+}
