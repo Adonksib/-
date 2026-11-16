@@ -17,14 +17,44 @@
 
 ## Docker 部署
 
+代码托管在两处，内容完全一致（同一个 `main` 分支）：
+
+| 平台 | 地址 | 说明 |
+|---|---|---|
+| Gitee | `https://gitee.com/<用户名>/<仓库名>` | 国内拉取快，推荐 |
+| GitHub | `https://github.com/Adonksib/-` | 镜像仓库 |
+
 镜像里已经装好 Chromium 与 Noto CJK 字体，PDF 导出开箱可用。
 
 ```bash
-cp .env.example .env      # 按需填写 API_KEY / ACCESS_PASSWORD
+git clone <仓库地址> qstheory    # 国内建议用 Gitee 地址
+cd qstheory
+cp .env.example .env             # 填 API_KEY / ACCESS_PASSWORD
 docker compose up -d --build
 ```
 
 打开 `http://<服务器IP>:5178` 即可。
+
+> **为什么克隆时指定目录名**：GitHub 那个仓库名是一个减号，直接 clone 下来目录就叫 `-`，之后 `cd -` 会被 shell 理解成「返回上一个目录」，容易误操作。`docker-compose.yml` 里已经写死 `name: qstheory`，所以 Compose 的项目名不再受目录名影响；如果你的 Compose 版本低于 2.20 不认识顶层 `name`，改用 `docker compose -p qstheory up -d --build`。
+
+### 国内构建加速
+
+Dockerfile 默认已把 apt 指向清华源、npm 指向 npmmirror，国内服务器通常 1–2 分钟构建完。三个可覆盖的 build-arg：
+
+```bash
+# 基础镜像走国内加速地址（Docker Hub 拉不动时必用）
+docker compose build \
+  --build-arg NODE_IMAGE=docker.m.daocloud.io/library/node:22-bookworm-slim
+
+# 清华源不可达时换阿里云
+docker compose build --build-arg APT_MIRROR=mirrors.aliyun.com
+
+# npm 换其它镜像
+docker compose build --build-arg NPM_REGISTRY=https://registry.npmmirror.com
+```
+
+不传参数时行为与原先完全一致（走官方源）。
+
 
 - **数据卷**：`./data` 挂到容器 `/app/data`；仓库里那份 `data/` 已含第 22 期成品，挂上去直接能看，新生成的期号也会写回宿主机。
 - **换端口**：改 `docker-compose.yml` 的 `ports` 左侧，例如 `8080:5178`。
@@ -162,6 +192,12 @@ node scripts/test-mock.js 3           # 假模型跑通链路，验证不改代�
 
 **Q：PDF 有 10MB 左右？**
 因为保留了文章配图和统计图表原图。想要更小的文件，可以在浏览器里打开打印视图，用「另存为 PDF」自定义压缩。
+
+**Q：`docker compose up` 报 `project name must not be empty`？**
+Compose 默认用目录名当项目名，目录名含特殊字符（例如仓库名就是 `-`）会被过滤成空。本仓库 `docker-compose.yml` 已写死 `name: qstheory`；若你改过文件名或用了旧版 Compose，用 `docker compose -p qstheory up -d --build`。
+
+**Q：国内服务器构建卡在拉 chromium 或 npm install？**
+Dockerfile 已默认走清华源 + npmmirror。若仍慢，分别覆盖：`--build-arg APT_MIRROR=mirrors.aliyun.com`、`--build-arg NODE_IMAGE=docker.m.daocloud.io/library/node:22-bookworm-slim`。
 
 **Q：部署后想限制访问？**
 在 `.env` 里设 `ACCESS_PASSWORD=你的口令`，整站会要求 HTTP Basic Auth（用户名随便填）。`/api/health` 例外，供容器健康检查。

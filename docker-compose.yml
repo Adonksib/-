@@ -1,3 +1,7 @@
+# 固定项目名：Compose 默认拿目录名推断，仓库名是 - 时会被过滤成空字符串，
+# 报 "project name must not be empty"。显式指定后不受目录名影响。
+name: qstheory
+
 services:
   qstheory:
     build: .
